@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5ED97563-FFB4-4962-87FA-E13C3CCD5A55}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GPFeatureExtraction</RootNamespace>
+    <AssemblyName>GPFeatureExtraction</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BraneCloud.Evolution.Archetype">
+      <HintPath>F:\BraneCloud\BraneCloud.Evolution.EC\Source\Projects\EC\BraneCloud.Evolution.EC\bin\Release\BraneCloud.Evolution.Archetype.dll</HintPath>
+    </Reference>
+    <Reference Include="BraneCloud.Evolution.Collections.Generic">
+      <HintPath>F:\BraneCloud\BraneCloud.Evolution.EC\Source\Projects\EC\BraneCloud.Evolution.EC\bin\Release\BraneCloud.Evolution.Collections.Generic.dll</HintPath>
+    </Reference>
+    <Reference Include="BraneCloud.Evolution.EC">
+      <HintPath>F:\BraneCloud\BraneCloud.Evolution.EC\Source\Projects\EC\BraneCloud.Evolution.EC\bin\Release\BraneCloud.Evolution.EC.dll</HintPath>
+    </Reference>
+    <Reference Include="BraneCloud.Evolution.EC.Configuration">
+      <HintPath>F:\BraneCloud\BraneCloud.Evolution.EC\Source\Projects\EC\BraneCloud.Evolution.EC\bin\Release\BraneCloud.Evolution.EC.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="BraneCloud.Evolution.EC.Logging">
+      <HintPath>F:\BraneCloud\BraneCloud.Evolution.EC\Source\Projects\EC\BraneCloud.Evolution.EC\bin\Release\BraneCloud.Evolution.EC.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="BraneCloud.Evolution.EC.Randomization">
+      <HintPath>F:\BraneCloud\BraneCloud.Evolution.EC\Source\Projects\EC\BraneCloud.Evolution.EC\bin\Release\BraneCloud.Evolution.EC.Randomization.dll</HintPath>
+    </Reference>
+    <Reference Include="BraneCloud.Evolution.EC.Support">
+      <HintPath>F:\BraneCloud\BraneCloud.Evolution.EC\Source\Projects\EC\BraneCloud.Evolution.EC\bin\Release\BraneCloud.Evolution.EC.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.UI, Version=4.2.0.3662, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>packages\Emgu.CV.runtime.windows.4.2.0.3662\lib\net461\Emgu.CV.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.World.NetStandard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>packages\Emgu.CV.4.2.0.3662\lib\netstandard2.0\Emgu.CV.World.NetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="LibSVMsharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\LibSVMsharp.1.2.5\lib\net45\LibSVMsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\DataLoader.cs" />
+    <Compile Include="Data\ProblemData.cs" />
+    <Compile Include="Image\ImageTransformer.cs" />
+    <Compile Include="Nodes\AddNode.cs" />
+    <Compile Include="Nodes\AndNode.cs" />
+    <Compile Include="Nodes\CloseNode.cs" />
+    <Compile Include="Nodes\CurrentImageNode.cs" />
+    <Compile Include="Nodes\OriginalImageNode.cs" />
+    <Compile Include="Nodes\DilateNode.cs" />
+    <Compile Include="Nodes\ErodeNode.cs" />
+    <Compile Include="Nodes\MorphLeaf.cs" />
+    <Compile Include="Nodes\MorphNode.cs" />
+    <Compile Include="Nodes\NotNode.cs" />
+    <Compile Include="Nodes\OpenNode.cs" />
+    <Compile Include="Nodes\OrNode.cs" />
+    <Compile Include="Nodes\SubNode.cs" />
+    <Compile Include="Nodes\XorNode.cs" />
+    <Compile Include="Problem\FeatureExtractionProblem.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="LIBSVM_COPYRIGHT" />
+    <None Include="packages.config" />
+    <None Include="Parameters\ec.params" />
+    <None Include="Parameters\koza.params" />
+    <None Include="Parameters\simple.params" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libsvm.dll" />
+    <Content Include="License-LGPL.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets" Condition="Exists('packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets'))" />
+  </Target>
+</Project>

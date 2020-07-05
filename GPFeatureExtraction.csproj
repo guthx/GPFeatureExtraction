@@ -87,9 +87,26 @@
     <Reference Include="LibSVMsharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>packages\LibSVMsharp.1.2.5\lib\net45\LibSVMsharp.dll</HintPath>
     </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MathNet.Numerics.4.8.1\lib\net461\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.Common.Interfaces, Version=0.31.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SharpLearning.Common.Interfaces.0.31.7\lib\net461\SharpLearning.Common.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.Containers, Version=0.31.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SharpLearning.Containers.0.31.7\lib\net461\SharpLearning.Containers.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.InputOutput, Version=0.31.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SharpLearning.InputOutput.0.31.7\lib\net461\SharpLearning.InputOutput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.Neural, Version=0.31.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SharpLearning.Neural.0.31.7\lib\net461\SharpLearning.Neural.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -104,10 +121,20 @@
     <Compile Include="Data\DataLoader.cs" />
     <Compile Include="Data\ProblemData.cs" />
     <Compile Include="Image\ImageTransformer.cs" />
+    <Compile Include="Nodes\AbsSubNode.cs" />
     <Compile Include="Nodes\AddNode.cs" />
     <Compile Include="Nodes\AndNode.cs" />
     <Compile Include="Nodes\CloseNode.cs" />
     <Compile Include="Nodes\CurrentImageNode.cs" />
+    <Compile Include="Nodes\Gauss35Node.cs" />
+    <Compile Include="Nodes\Gaussian3Node.cs" />
+    <Compile Include="Nodes\Gaussian5Node.cs" />
+    <Compile Include="Nodes\InRangeNode.cs" />
+    <Compile Include="Nodes\Laplacian3Node.cs" />
+    <Compile Include="Nodes\MaxPooling4Node.cs" />
+    <Compile Include="Nodes\Mean3Node.cs" />
+    <Compile Include="Nodes\Mean5Node.cs" />
+    <Compile Include="Nodes\MulNode.cs" />
     <Compile Include="Nodes\OriginalImageNode.cs" />
     <Compile Include="Nodes\DilateNode.cs" />
     <Compile Include="Nodes\ErodeNode.cs" />
@@ -116,9 +143,14 @@
     <Compile Include="Nodes\NotNode.cs" />
     <Compile Include="Nodes\OpenNode.cs" />
     <Compile Include="Nodes\OrNode.cs" />
+    <Compile Include="Nodes\RangeERC.cs" />
+    <Compile Include="Nodes\Rotate20Node.cs" />
+    <Compile Include="Nodes\RotateM20Node.cs" />
+    <Compile Include="Nodes\SquareNode.cs" />
     <Compile Include="Nodes\SubNode.cs" />
     <Compile Include="Nodes\XorNode.cs" />
     <Compile Include="Problem\FeatureExtractionProblem.cs" />
+    <Compile Include="Problem\FeatureExtractionProblem2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -128,6 +160,7 @@
     <None Include="packages.config" />
     <None Include="Parameters\ec.params" />
     <None Include="Parameters\koza.params" />
+    <None Include="Parameters\problem2.params" />
     <None Include="Parameters\simple.params" />
   </ItemGroup>
   <ItemGroup>
@@ -141,5 +174,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets'))" />
+    <Error Condition="!Exists('packages\MathNet.Numerics.MKL.Win.2.3.0\build\MathNet.Numerics.MKL.Win.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MathNet.Numerics.MKL.Win.2.3.0\build\MathNet.Numerics.MKL.Win.targets'))" />
   </Target>
+  <Import Project="packages\MathNet.Numerics.MKL.Win.2.3.0\build\MathNet.Numerics.MKL.Win.targets" Condition="Exists('packages\MathNet.Numerics.MKL.Win.2.3.0\build\MathNet.Numerics.MKL.Win.targets')" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using BraneCloud.Evolution.EC;
 using BraneCloud.Evolution.EC.Configuration;
 using BraneCloud.Evolution.EC.GP;
+using GPFeatureExtraction.Image;
 using GPFeatureExtraction.Problem;
 using System;
 using System.Collections.Generic;
@@ -10,23 +11,19 @@ using System.Threading.Tasks;
 
 namespace GPFeatureExtraction.Nodes
 {
-    [ECConfiguration("ec.nodes.XorNode")]
-    public class XorNode : GPNode
+    [ECConfiguration("ec.nodes.MaxPooling4Node")]
+    public class MaxPooling4Node : GPNode
     {
         public override void Eval(IEvolutionState state, int thread, GPData input, ADFStack stack, GPIndividual individual, IProblem problem)
         {
-            var p = (FeatureExtractionProblem)problem;
-            var c0 = p.currentImage[thread].Copy();
+            var p = (FeatureExtractionProblem2)problem;
             Children[0].Eval(state, thread, input, stack, individual, problem);
-            var c1 = p.currentImage[thread].Copy();
-            c0.CopyTo(p.currentImage[thread]);
-            Children[1].Eval(state, thread, input, stack, individual, problem);
-            p.currentImage[thread] = p.currentImage[thread].Xor(c1);
+            ImageTransformer.MaxPooling4(p.currentImage[thread]);
         }
 
         public override string ToString()
         {
-            return "XOR";
+            return "MAX_POOLING_4";
         }
     }
 }

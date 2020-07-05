@@ -48,7 +48,7 @@ namespace GPFeatureExtraction.Nodes
 
         public override void Eval(IEvolutionState state, int thread, GPData input, ADFStack stack, GPIndividual individual, IProblem problem)
         {
-            var image = ((FeatureExtractionProblem)problem).currentImage;
+            var image = ((FeatureExtractionProblem)problem).currentImage[thread];
             var transformer = ((FeatureExtractionProblem)problem).imageTransformer;
             transformer.TransformImage(image, (Image.ImageTransformer.TransformationType)morphType);
             Children[0].Eval(state, thread, input, stack, individual, problem);

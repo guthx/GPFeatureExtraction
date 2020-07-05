@@ -15,8 +15,8 @@ namespace GPFeatureExtraction.Nodes
     {
         public override void Eval(IEvolutionState state, int thread, GPData input, ADFStack stack, GPIndividual individual, IProblem problem)
         {
-            var p = (FeatureExtractionProblem)problem;
-            p.originalImage.CopyTo(p.currentImage);
+            var p = (FeatureExtractionProblem2)problem;
+            p.originalImage[thread].CopyTo(p.currentImage[thread]);
         }
 
         public override string ToString()

@@ -17,7 +17,7 @@ namespace GPFeatureExtraction.Nodes
         {
             var p = (FeatureExtractionProblem)problem;
             Children[0].Eval(state, thread, input, stack, individual, problem);
-            p.imageTransformer.TransformImage(p.currentImage, Image.ImageTransformer.TransformationType.OPEN);
+            p.imageTransformer.TransformImage(p.currentImage[thread], Image.ImageTransformer.TransformationType.OPEN);
         }
 
         public override string ToString()

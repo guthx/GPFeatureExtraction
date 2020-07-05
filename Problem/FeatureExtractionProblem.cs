@@ -23,17 +23,22 @@ namespace GPFeatureExtraction.Problem
     public class FeatureExtractionProblem : GPProblem, ISimpleProblem
     {
         public ImageTransformer imageTransformer;
-        public Image<Gray, Byte> currentImage;
-        public Image<Gray, Byte> originalImage;
+        public Image<Gray, Byte>[] currentImage;
+        public Image<Gray, Byte>[] originalImage;
         public SVMParameter Parameter;
         public ProblemData Input;
         public string[] imageList;
 
         public override void Setup(IEvolutionState state, IParameter paramBase)
         {
-            imageTransformer = new ImageTransformer(100, 100, @"F:\Gesty\bin", @"F:\Gesty\rescaled");
-            currentImage = new Image<Gray, Byte>(100, 100);
-            originalImage = new Image<Gray, Byte>(100, 100);
+            imageTransformer = new ImageTransformer(200, 200, @"F:\Gesty\bin", @"F:\Gesty\rescaled");
+            currentImage = new Image<Gray, Byte>[4];
+            originalImage = new Image<Gray, Byte>[4];
+            for(int i = 0; i < 4; i++)
+            {
+                currentImage[i] = new Image<Gray, Byte>(200, 200);
+                originalImage[i] = new Image<Gray, Byte>(200, 200);
+            }
             Parameter = new SVMParameter();
             Parameter.Type = SVMType.C_SVC;
             Parameter.Kernel = SVMKernelType.POLY;
@@ -41,8 +46,10 @@ namespace GPFeatureExtraction.Problem
             Input = (ProblemData)state.Parameters.GetInstanceForParameterEq(
                 paramBase.Push(P_DATA), null, typeof(ProblemData));
             Input.Setup(state, paramBase.Push(P_DATA));
-            imageTransformer.RescaleAndSaveImages();
-            imageList = Directory.GetFiles(@"F:\Gesty\rescaled");
+            // imageTransformer.RescaleAndSaveImages();
+            // imageList = Directory.GetFiles(@"F:\Gesty\rescaled");
+            imageTransformer.RescaleAndRotate();
+            imageList = Directory.GetFiles(@"F:\Gesty\rotated");
         }
 
         public override object Clone()
@@ -55,17 +62,18 @@ namespace GPFeatureExtraction.Problem
             if (!ind.Evaluated)
             {
                 int imageIndex;
-                var SVMTrainData = new StreamWriter(@"F:\Gesty\features\traindata.txt");
-                var SVMTestData = new StreamWriter(@"F:\Gesty\features\testdata.txt");
+                var SVMTrainData = new StreamWriter(@"F:\Gesty\features\traindata" + threadnum + ".txt");
+                var SVMTestData = new StreamWriter(@"F:\Gesty\features\testdata" + threadnum + ".txt");
                 for(imageIndex = 0; imageIndex < imageList.Length; imageIndex++)
                 {
                     var image = new Image<Gray, Byte>(imageList[imageIndex]);
                     var line = new StringBuilder();
-                    image.CopyTo(currentImage);
-                    image.CopyTo(originalImage);
+                    image.CopyTo(currentImage[threadnum]);
+                    image.CopyTo(originalImage[threadnum]);
                     image.Dispose();
                     ((GPIndividual)ind).Trees[0].Child.Eval(state, threadnum, Input, Stack, ((GPIndividual)ind), this);
-                    int[] features = imageTransformer.GetSuperpixelFeatures(currentImage);
+                    //int[] features = imageTransformer.GetSuperpixelFeatures(currentImage[threadnum]);
+                    int[] features = ImageTransformer.GetSquareSuperpixelFeatures(currentImage[threadnum], 25);
 
                     line.Append((imageIndex / 213) + 1 + " ");
                     for(int i=1; i<=features.Length; i++)
@@ -80,8 +88,8 @@ namespace GPFeatureExtraction.Problem
                 }
                 SVMTrainData.Close();
                 SVMTestData.Close();
-                var problem = SVMProblemHelper.Load(@"F:\Gesty\features\traindata.txt");
-                var testProblem = SVMProblemHelper.Load(@"F:\Gesty\features\testdata.txt");
+                var problem = SVMProblemHelper.Load(@"F:\Gesty\features\traindata" + threadnum + ".txt");
+                var testProblem = SVMProblemHelper.Load(@"F:\Gesty\features\testdata" + threadnum + ".txt");
                 var model = problem.Train(Parameter);
                 double[] target = testProblem.Predict(model);
                 double accuracy = testProblem.EvaluateClassificationProblem(target);

@@ -1,4 +1,4 @@
-# Copyright 2006 by Sean Luke and George Mason University
+﻿# Copyright 2006 by Sean Luke and George Mason University
 # Licensed under the Academic Free License version 3.0
 # See the file "LICENSE" for more information
 
@@ -169,8 +169,9 @@ gp.koza.ns.root = 0.0
 # Here we define a single atomic type, "nil", which everyone will use.
 # There are no set types defined.
 
-gp.type.a.size = 1
+gp.type.a.size = 2
 gp.type.a.0.name = morph
+gp.type.a.1.name = range
 gp.type.s.size = 0
 
 # Here we define one GPTreeConstraints object, "tc0",
@@ -217,7 +218,7 @@ gp.koza.half.growp = 0.5
 # You don't need to include the class declarations with everything
 # else below, but it quiets warnings
 
-gp.nc.size = 3
+gp.nc.size = 5
 
 gp.nc.0 = ec.gp.GPNodeConstraints
 gp.nc.0.name = morphNode
@@ -237,49 +238,66 @@ gp.nc.2.name = terminalNode
 gp.nc.2.returns = morph
 gp.nc.2.size = 0
 
+gp.nc.3 = ec.gp.GPNodeConstraints
+gp.nc.3.name = inRangeNode
+gp.nc.3.returns = morph
+gp.nc.3.size = 3
+gp.nc.3.child.0 = morph
+gp.nc.3.child.1 = range
+gp.nc.3.child.2 = range
+
+gp.nc.4 = ec.gp.GPNodeConstraints
+gp.nc.4.name = rangeNode
+gp.nc.4.returns = range
+gp.nc.4.size = 0
+
 gp.fs.size = 1
 gp.fs.0 = ec.gp.GPFunctionSet
 gp.fs.0.name = f0
 gp.fs.0.size = 11
 gp.fs.0.func.0 = ec.nodes.AddNode
 gp.fs.0.func.0.nc = bitwiseNode
-gp.fs.0.func.1 = ec.nodes.AndNode
+gp.fs.0.func.1 = ec.nodes.SubNode
 gp.fs.0.func.1.nc = bitwiseNode
-gp.fs.0.func.2 = ec.nodes.OrNode
-gp.fs.0.func.2.nc = bitwiseNode
-gp.fs.0.func.3 = ec.nodes.XorNode
-gp.fs.0.func.3.nc = bitwiseNode
-gp.fs.0.func.4 = ec.nodes.SubNode
-gp.fs.0.func.4.nc = bitwiseNode
-gp.fs.0.func.5 = ec.nodes.CloseNode
+gp.fs.0.func.2 = ec.nodes.Gaussian3Node
+gp.fs.0.func.2.nc = morphNode
+gp.fs.0.func.3 = ec.nodes.Gaussian5Node
+gp.fs.0.func.3.nc = morphNode
+gp.fs.0.func.4 = ec.nodes.Laplacian3Node
+gp.fs.0.func.4.nc = morphNode
+gp.fs.0.func.5 = ec.nodes.Mean3Node
 gp.fs.0.func.5.nc = morphNode
-gp.fs.0.func.6 = ec.nodes.OpenNode
-gp.fs.0.func.6.nc = morphNode
-gp.fs.0.func.7 = ec.nodes.DilateNode
-gp.fs.0.func.7.nc = morphNode
-gp.fs.0.func.8 = ec.nodes.ErodeNode
+gp.fs.0.func.6 = ec.nodes.MulNode
+gp.fs.0.func.6.nc = bitwiseNode
+gp.fs.0.func.7 = ec.nodes.OriginalImageNode
+gp.fs.0.func.7.nc = terminalNode
+gp.fs.0.func.8 = ec.nodes.MaxPooling4Node
 gp.fs.0.func.8.nc = morphNode
-gp.fs.0.func.9 = ec.nodes.NotNode
-gp.fs.0.func.9.nc = morphNode
-gp.fs.0.func.10 = ec.nodes.OriginalImageNode
-gp.fs.0.func.10.nc = terminalNode
-#gp.fs.0.func.11 = ec.nodes.CurrentImageNode
-#gp.fs.0.func.11.nc = terminalNode
+gp.fs.0.func.9 = ec.nodes.AbsSubNode
+gp.fs.0.func.9.nc = bitwiseNode
+gp.fs.0.func.10 = ec.nodes.Mean5Node
+gp.fs.0.func.10.nc = morphNode
+#gp.fs.0.func.10 = ec.nodes.SquareNode
+#gp.fs.0.func.10.nc = morphNode
+#gp.fs.0.func.11 = ec.nodes.InRangeNode
+#gp.fs.0.func.11.nc = inRangeNode
+#gp.fs.0.func.12 = ec.nodes.RangeERC
+#gp.fs.0.func.12.nc = rangeNode
 
-eval.problem = ec.problems.FeatureExtractionProblem
+eval.problem = ec.problems.FeatureExtractionProblem2
 eval.problem.data = ec.data.FeatureExtractionData
 
 jobs = 1
-generations = 20
+generations = 1
 
 evalthreads = 4
 breedthreads = 4
-seed.0 = 1613902553
-seed.1 = 203457869
-seed.2 = 433600177
-seed.3 = 1698118691
+seed.0 = time
+seed.1 = time
+seed.2 = time
+seed.3 = time
 
-pop.subpop.0.size = 20
+pop.subpop.0.size = 1
 
 #433600177
 #1477271183

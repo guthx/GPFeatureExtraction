@@ -2,7 +2,7 @@
 using BraneCloud.Evolution.EC.Configuration;
 using BraneCloud.Evolution.EC.GP;
 using BraneCloud.Evolution.EC.Util;
-using GPFeatureExtraction.Problem;
+using GPFeatureExtraction.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,22 +11,25 @@ using System.Threading.Tasks;
 
 namespace GPFeatureExtraction.Nodes
 {
-    [ECConfiguration("ec.nodes.MorphLeaf")]
-    public class MorphLeaf : ERC
+    [ECConfiguration("ec.nodes.RangeERC")]
+    public class RangeERC : ERC
     {
-        public int morphType;
-        public override string ToString()
-        {
-            return ((Image.ImageTransformer.TransformationType)morphType).ToString();
-        }
+        public int value;
+
         public override string ToStringForHumans()
         {
-            return ((Image.ImageTransformer.TransformationType)morphType).ToString();
+            return value.ToString();
+        }
+
+        public override string ToString()
+        {
+            return "ERC(range)";
         }
         public override string Encode()
         {
-            return Code.Encode(morphType);
+            return Code.Encode(value);
         }
+
         public override bool Decode(DecodeReturn dret)
         {
             int pos = dret.Pos;
@@ -38,30 +41,23 @@ namespace GPFeatureExtraction.Nodes
                 dret.Pos = pos;
                 return false;
             }
-            morphType = (int)dret.L;
+            value = (int)dret.L;
             return true;
         }
 
         public override void Eval(IEvolutionState state, int thread, GPData input, ADFStack stack, GPIndividual individual, IProblem problem)
         {
-            var image = ((FeatureExtractionProblem)problem).currentImage[thread];
-            var transformer = ((FeatureExtractionProblem)problem).imageTransformer;
-            transformer.TransformImage(image, (Image.ImageTransformer.TransformationType)morphType);
-        }
-
-        public override void MutateERC(IEvolutionState state, int thread)
-        {
-            morphType = state.Random[thread].NextInt(7);
+            ((ProblemData)input).range = value;
         }
 
         public override bool NodeEquals(GPNode node)
         {
-            return (node.GetType() == this.GetType() && ((MorphLeaf)node).morphType == morphType);
+            return (node.GetType() == this.GetType() && ((RangeERC)node).value == value);
         }
 
         public override void ResetNode(IEvolutionState state, int thread)
         {
-            morphType = state.Random[thread].NextInt(7);
+            value = state.Random[thread].NextInt(20) + 1;
         }
     }
 }

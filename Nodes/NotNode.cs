@@ -17,7 +17,7 @@ namespace GPFeatureExtraction.Nodes
         {
             var p = (FeatureExtractionProblem)problem;
             Children[0].Eval(state, thread, input, stack, individual, problem);
-            p.currentImage = p.currentImage.Not();
+            p.currentImage[thread] = p.currentImage[thread].Not();
         }
 
         public override string ToString()

@@ -16,12 +16,12 @@ namespace GPFeatureExtraction.Nodes
         public override void Eval(IEvolutionState state, int thread, GPData input, ADFStack stack, GPIndividual individual, IProblem problem)
         {
             var p = (FeatureExtractionProblem)problem;
-            var c0 = p.currentImage.Copy();
+            var c0 = p.currentImage[thread].Copy();
             Children[0].Eval(state, thread, input, stack, individual, problem);
-            var c1 = p.currentImage.Copy();
-            c0.CopyTo(p.currentImage);
+            var c1 = p.currentImage[thread].Copy();
+            c0.CopyTo(p.currentImage[thread]);
             Children[1].Eval(state, thread, input, stack, individual, problem);
-            p.currentImage = p.currentImage.Or(c1);
+            p.currentImage[thread] = p.currentImage[thread].Or(c1);
         }
 
         public override string ToString()

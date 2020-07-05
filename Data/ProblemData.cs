@@ -11,6 +11,10 @@ namespace GPFeatureExtraction.Data
     [ECConfiguration("ec.data.FeatureExtractionData")]
     public class ProblemData : GPData
     {
-        public override void CopyTo(GPData gpd) { }
+        public int range;
+        public override void CopyTo(GPData gpd) 
+        {
+            ((ProblemData)gpd).range = range;
+        }
     }
 }
